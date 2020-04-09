@@ -1,0 +1,65 @@
+get-payment_profile:
+  operationId: showPaymentProfile
+  summary: Payment profile information
+  description: List payment profile information
+  responses:
+    "200":
+      description: Information succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/PaymentProfileResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+put-payment_profile:
+  operationId: createPaymentProfile
+  summary: Creates a new payment profile
+  description: Creates a new payment profile for the user
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          $ref: '../components.yml#/schemas/PaymentProfileRequest'
+    description: The payment profile data.
+    required: true
+  responses:
+    "201":
+      description: Payment profile succesfully updated.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/PaymentProfileResponse'
+    "400":
+      description: bad request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "422":
+      description: unprocessable entity
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

@@ -1,0 +1,23 @@
+get-teacher_voicepacks:
+  operationId: showTeacherVoicepacks
+  summary: List teacher voicepacks
+  description: List available teacher voicepacks
+  responses:
+    "200":
+      description: teacher voicepacks succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/TeacherVoicepacksResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

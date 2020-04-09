@@ -1,0 +1,24 @@
+TeacherVoicepack:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [teacher_voicepack, teacher_voicepacks]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - name
+        - resource_url
+      properties:
+        name:
+          type: string
+          example: Foundations
+        resource_url:
+          type: string
+          example: https://heartbit.amazonaws.com/teachers/voices/foundations.mp3

@@ -1,0 +1,151 @@
+post-users:
+  operationId: createUser
+  summary: Creates a new user
+  description: Creates a new user
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          $ref: '../components.yml#/schemas/UserRequest'
+        example:
+          data:
+            type: user
+            attributes:
+              email: user@fakemail.com
+              password: mypassword1$
+              first_name: Pablo
+              last_name: Perez
+              city: Lima
+              role: Student
+              age: 12
+              terms_accepted: true
+    description: The user data.
+    required: true
+  responses:
+    "201":
+      description: user succesfully created.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserResponse'
+          example:
+            data:
+              type: user
+              id: '1'
+              attributes:
+                email: user@fakemail.com
+                password: mypassword1$
+                first_name: Pablo
+                last_name: Perez
+                registration_state: language_pending
+    "400":
+      description: bad request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "422":
+      description: unprocessable entity
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+
+get-users-id:
+  operationId: getUser
+  summary: Gets a user
+  description: Returns a single user by their identifier.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The user's id
+      schema:
+        type: string
+  responses:
+    "200":
+      description: A Person
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserResponse'
+    "404":
+      description: The user does not exist or was not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+
+patch-users-id:
+  operationId: updateUserById
+  summary: Updates a single user
+  description: Returns the updated single user
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The user's id
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          $ref: '../components.yml#/schemas/UserRequest'
+    description: the updated user attributes
+    required: true
+  responses:
+    "200":
+      description: user updated
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserResponse'
+          example:
+            data:
+              type: user
+              id: '1'
+              attributes:
+                email: user@fakemail.com
+                password: mypassword1$
+                first_name: Pablo
+                last_name: Perez
+                registration_state: onboarding_complete
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+
+delete-users-id:
+  operationId: removeUserById
+  summary: Removes a single user
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The user's id
+      schema:
+        type: string
+  responses:
+    "204":
+      description: accepted - user deleted
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

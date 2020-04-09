@@ -1,0 +1,1388 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Heartbit API
+paths:
+  /users:
+    post:
+      operationId: createUser
+      summary: Creates a new user
+      description: Creates a new user
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+            example:
+              data:
+                type: user
+                attributes:
+                  email: user@fakemail.com
+                  password: mypassword1$
+                  first_name: Pablo
+                  last_name: Perez
+                  city: Lima
+                  role: Student
+                  age: 12
+                  terms_accepted: true
+        description: The user data.
+        required: true
+      responses:
+        '201':
+          description: user succesfully created.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                data:
+                  type: user
+                  id: '1'
+                  attributes:
+                    email: user@fakemail.com
+                    password: mypassword1$
+                    first_name: Pablo
+                    last_name: Perez
+                    registration_state: language_pending
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  '/users/{id}':
+    get:
+      operationId: getUser
+      summary: Gets a user
+      description: Returns a single user by their identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The user's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A Person
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: The user does not exist or was not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: updateUserById
+      summary: Updates a single user
+      description: Returns the updated single user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The user's id
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        description: the updated user attributes
+        required: true
+      responses:
+        '200':
+          description: user updated
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                data:
+                  type: user
+                  id: '1'
+                  attributes:
+                    email: user@fakemail.com
+                    password: mypassword1$
+                    first_name: Pablo
+                    last_name: Perez
+                    registration_state: onboarding_complete
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: removeUserById
+      summary: Removes a single user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The user's id
+          schema:
+            type: string
+      responses:
+        '204':
+          description: accepted - user deleted
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /token:
+    post:
+      operationId: createToken
+      summary: Creates a new auth token
+      description: Creates a new auth token for the user
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+        description: The user login data.
+        required: true
+      responses:
+        '201':
+          description: token succesfully created.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteToken
+      summary: Destroy an existing user token
+      responses:
+        '204':
+          description: accepted - token deleted
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /languages:
+    get:
+      operationId: showLanguages
+      summary: List languages
+      description: List available languages
+      responses:
+        '200':
+          description: languages succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LanguagesResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /kits:
+    get:
+      operationId: showKits
+      summary: List Kits
+      description: List available Kits
+      responses:
+        '200':
+          description: Kits succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/KitsResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createKit
+      summary: Create a Kit
+      description: Create a Kit
+      responses:
+        '201':
+          description: Kit succesfully created.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/KitResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      operationId: cors
+      summary: CORS policy for resources
+      description: CORS policy for resources
+      responses:
+        '200':
+          description: CORS response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: 'http://localhost:4010'
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
+            Access-Control-Expose-Headers:
+              schema:
+                type: string
+                example: ''
+            Access-Control-Max-Age:
+              schema:
+                type: integer
+                example: 1728000
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+  '/kits/{id}':
+    get:
+      operationId: showKit
+      summary: Show the corresponding kit by id
+      description: Show the corresponding kit by id
+      responses:
+        '200':
+          description: Kit succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/KitResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: updateKit
+      summary: update a Kit
+      description: update a Kit
+      responses:
+        '200':
+          description: Kit succesfully updated.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/KitResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteKit
+      summary: Delete an existing kit
+      responses:
+        '204':
+          description: accepted - kit deleted
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /passwords:
+    post:
+      operationId: createPassword
+      summary: Reset password
+      description: Create a reset password request
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+            example:
+              data:
+                type: password
+                attributes:
+                  email: heartbit_user@fakemail.com
+        description: The user email
+        required: true
+      responses:
+        '204':
+          description: accepted - password request created.
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: createUserPassword
+      summary: Set a new password
+      description: Create a new password
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/NewPasswordRequest'
+            examples:
+              with_password_reset_token:
+                value:
+                  data:
+                    type: password
+                    attributes:
+                      reset_password_token: wxSeqsVvQsatcobvChq
+                      password: newpassword1$
+              with_current_password:
+                value:
+                  data:
+                    type: password
+                    attributes:
+                      current_password: oldpassword1$
+                      password: newpassword1$
+                      password_confirmation: newpassword1$
+        description: The new user password and reset password token or current password
+        required: true
+      responses:
+        '200':
+          description: accepted - password changed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                data:
+                  type: user
+                  id: '1'
+                  attributes:
+                    email: heartbit_user@fakemail.com
+                    first_name: Pedro
+                    last_name: Perez
+        '422':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /payment_profile:
+    get:
+      operationId: showPaymentProfile
+      summary: Payment profile information
+      description: List payment profile information
+      responses:
+        '200':
+          description: Information succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PaymentProfileResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: createPaymentProfile
+      summary: Creates a new payment profile
+      description: Creates a new payment profile for the user
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PaymentProfileRequest'
+        description: The payment profile data.
+        required: true
+      responses:
+        '201':
+          description: Payment profile succesfully updated.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PaymentProfileResponse'
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /user_kits:
+    post:
+      operationId: createUserKit
+      summary: Creates a new user kit
+      description: Creates a new user kit
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserKitRequest'
+        description: The user kit data.
+        required: true
+      responses:
+        '201':
+          description: user kit succesfully created.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserKitResponse'
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /user_learning_paths:
+    get:
+      operationId: listUserLearningPaths
+      summary: List User Learning Paths
+      description: List available user learning paths
+      responses:
+        '200':
+          description: user learning paths succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserLearningPathsResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createUserLearningPath
+      summary: Creates a new user learning path
+      description: Creates a new user learning path
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserLearningPathRequest'
+        description: The user learning path data.
+        required: true
+      responses:
+        '201':
+          description: User learning path succesfully created.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserLearningPathResponse'
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /learning_paths:
+    get:
+      operationId: showLearningPaths
+      summary: List learning paths
+      description: List available learning paths
+      responses:
+        '200':
+          description: learning paths succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningPathResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /teacher_programs:
+    get:
+      operationId: showTeacherPrograms
+      summary: List teacher programs
+      description: List available teacher programs
+      responses:
+        '200':
+          description: teacher programs succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeacherProgramsResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /teacher_voicepacks:
+    get:
+      operationId: showTeacherVoicepacks
+      summary: List teacher voicepacks
+      description: List available teacher voicepacks
+      responses:
+        '200':
+          description: teacher voicepacks succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeacherVoicepacksResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+  /teacher_videos:
+    get:
+      operationId: showTeacherVideos
+      summary: List teacher videos
+      description: List available teacher videos
+      responses:
+        '200':
+          description: teacher videos succesfully listed.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeacherVideosResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: unexpected error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    options:
+      $ref: '#/paths/~1kits/options'
+servers:
+  - url: 'http://localhost:3000/'
+  - url: 'https://localhost:3000/'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for this occurence
+        links:
+          type: object
+          description: A links object
+          properties:
+            about:
+              type: string
+              description: link that leads to details about this occurence
+        status:
+          type: string
+          description: HTTP status code
+        code:
+          type: string
+          description: Application Specific Error Code
+        title:
+          type: string
+          description: Human-readable summary of the problem
+        detail:
+          type: string
+          description: Human-readable explanation of the problem
+        source:
+          type: object
+          description: Contains references to the source of the problem
+        meta:
+          type: object
+          description: Non-standard meta-information about the error
+    User:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - user
+            - users
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              example: user@fakemail.com
+            password:
+              type: string
+            first_name:
+              type: string
+              example: Username
+            last_name:
+              type: string
+              example: Userlastname
+            age:
+              type: integer
+              example: 15
+            city:
+              type: string
+              example: Bogotá
+            role:
+              type: string
+              example: Student
+            address:
+              type: string
+              example: 'Calle 150A #45-95'
+              nullable: true
+            terms_accepted:
+              type: boolean
+              example: true
+            registration_state:
+              type: string
+              enum:
+                - language_pending
+                - onboarding_completed
+            image_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/users/1.png'
+              nullable: true
+            institution:
+              type: string
+              example: Liceo Francés
+              nullable: true
+    Token:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - token
+            - tokens
+        id:
+          type: string
+          example: 2019-05-31T21:48:11.454Z
+        attributes:
+          type: object
+          required:
+            - token
+            - created_at
+            - expires_on
+            - expires_in
+          properties:
+            token:
+              type: string
+              example: eyJhbGciOiJIUzI1NiJ9.ey...
+            created_at:
+              type: string
+              example: 2019-05-31T21:48:11.454Z
+            expires_on:
+              type: string
+              example: 2019-07-01T08:17:17.454Z
+            expires_in:
+              type: integer
+              example: 2629746
+    UserSession:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - token
+            - tokens
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              example: heartbit_user@fakemail.com
+            password:
+              type: string
+    UserEmail:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - password
+            - passwords
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              example: heartbit_user@fakemail.com
+    UserPassword:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - password
+            - passwords
+        attributes:
+          type: object
+          properties:
+            password:
+              type: string
+            reset_password_token:
+              type: string
+              nullable: true
+            current_password:
+              type: string
+              nullable: true
+            password_confirmation:
+              type: string
+              nullable: true
+    Language:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - language
+            - languages
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - name
+            - image_url
+          properties:
+            name:
+              type: string
+              example: english
+            image_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/languages/english.png'
+    Kit:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - kit
+            - kits
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - name
+            - image_url
+            - industry
+            - difficulty
+            - age
+            - description
+            - video_url
+            - published
+            - background
+          properties:
+            name:
+              type: string
+              example: Emotion Tech
+            image_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/kits/emotion-tech.png'
+            industry:
+              type: string
+              example: Emotion Tech
+            difficulty:
+              type: integer
+              example: 3
+            age:
+              type: integer
+              example: 8
+            description:
+              type: string
+              example: This is a short description of what is this kit about
+            video_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/kits/emotion-tech.mp4'
+            published:
+              type: boolean
+              example: true
+            background:
+              type: string
+              example: 00FF00
+            price_in_cents:
+              type: integer
+              example: 1990
+    PaymentProfile:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - payment_profile
+            - payment_profiles
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - last4
+            - brand
+          properties:
+            external_payment_info:
+              type: object
+              example:
+                - stripe_token: token_FX2mrFpqfmNeml
+                - stripe_card: card_1F1yhI2eZvKYlo2C00o6u8pH
+            last4:
+              type: integer
+              example: 1234
+            brand:
+              type: string
+              example: Visa
+    UserKit:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - user_kit
+            - user_kits
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          properties:
+            funding_source:
+              type: string
+              example: payment
+        relationships:
+          type: object
+          properties:
+            kit:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: '1'
+                type:
+                  type: string
+                  enum:
+                    - kit
+                    - kits
+    LearningPath:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - learning_path
+            - learning_paths
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - title
+            - price_in_cents
+            - video_intro
+            - description
+            - image_url
+          properties:
+            name:
+              type: title
+              example: Introduction to STEAM
+            image_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/learning_path/1.png'
+            price_in_cents:
+              type: integer
+              example: 3180
+            video_intro:
+              type: string
+              example: 'https://heartbit.amazonaws.com/learning_path/learning_steam.mp4'
+            description:
+              type: string
+              example: \nTake your analysis to the next level with General Assembly.
+    UserLearningPath:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - user_learning_path
+            - user_learning_paths
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          properties:
+            funding_source:
+              type: string
+              example: payment
+        relationships:
+          type: object
+          properties:
+            learning_path:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: '1'
+                type:
+                  type: string
+                  enum:
+                    - learning_path
+                    - learning_paths
+    TeacherProgram:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - teacher_program
+            - teacher_programs
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - name
+            - image_url
+            - resource_url
+          properties:
+            name:
+              type: string
+              example: First Year Teacher
+            image_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/teachers/programs/first_year_teacher.png'
+            resource_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/teachers/programs/first_year_teacher.pdf'
+    TeacherVoicepack:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - teacher_voicepack
+            - teacher_voicepacks
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - name
+            - resource_url
+          properties:
+            name:
+              type: string
+              example: Foundations
+            resource_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/teachers/voices/foundations.mp3'
+    TeacherVideo:
+      type: object
+      required:
+        - type
+        - attributes
+      properties:
+        type:
+          type: string
+          enum:
+            - teacher_video
+            - teacher_videos
+        id:
+          type: string
+          example: '1'
+        attributes:
+          type: object
+          required:
+            - name
+            - resource_url
+          properties:
+            name:
+              type: string
+              example: Getting Started
+            resource_url:
+              type: string
+              example: 'https://heartbit.amazonaws.com/teachers/videos/getting_started.mp4'
+    UserRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        data:
+          $ref: '#/components/schemas/User'
+    UserResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    TokenRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserSession'
+    TokenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Token'
+    LanguagesResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+    KitRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Kit'
+    KitResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Kit'
+    KitsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kit'
+    ResetPasswordRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserEmail'
+    NewPasswordRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserPassword'
+    PaymentProfileRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaymentProfile'
+    PaymentProfileResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/PaymentProfile'
+    UserKitRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserKit'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kit'
+    UserKitResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserKit'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kit'
+    UserLearningPathRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserLearningPath'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningPath'
+    UserLearningPathResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/UserLearningPath'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningPath'
+    UserLearningPathsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLearningPath'
+    LearningPathResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningPath'
+    TeacherProgramsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherProgram'
+    TeacherVoicepacksResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherVoicepack'
+    TeacherVideosResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherVideo'
+    ErrorResponse:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'

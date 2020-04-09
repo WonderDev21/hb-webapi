@@ -1,0 +1,88 @@
+/users:
+  post:
+    $ref: './paths/users.yml#/post-users'
+  options:
+    $ref: './paths/cors.yml#/cors'
+"/users/{id}":
+  get:
+    $ref: './paths/users.yml#/get-users-id'
+  patch:
+    $ref: './paths/users.yml#/patch-users-id'
+  delete:
+    $ref: './paths/users.yml#/delete-users-id'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/token:
+  post:
+    $ref: './paths/tokens.yml#/post-token'
+  delete:
+    $ref: './paths/tokens.yml#/delete-token'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/languages:
+  get:
+    $ref: './paths/languages.yml#/get-languages'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/kits:
+  get:
+    $ref: './paths/kits.yml#/get-kits'
+  post:
+    $ref: './paths/kits.yml#/post-kits'
+  options:
+    $ref: './paths/cors.yml#/cors'
+"/kits/{id}":
+  get:
+    $ref: './paths/kits.yml#/get-kit'
+  patch:
+    $ref: './paths/kits.yml#/patch-kit'
+  delete:
+    $ref: './paths/kits.yml#/delete-kit'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/passwords:
+  post:
+    $ref: './paths/passwords.yml#/post-passwords'
+  patch:
+    $ref: './paths/passwords.yml#/patch-passwords'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/payment_profile:
+  get:
+    $ref: './paths/payment_profile.yml#/get-payment_profile'
+  put:
+    $ref: './paths/payment_profile.yml#/put-payment_profile'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/user_kits:
+  post:
+    $ref: './paths/user_kits.yml#/post-user_kits'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/user_learning_paths:
+  get:
+    $ref: './paths/user_learning_paths.yml#/get-user_learning_paths'
+  post:
+    $ref: './paths/user_learning_paths.yml#/post-user_learning_paths'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/learning_paths:
+  get:
+    $ref: './paths/learning_paths.yml#/get-learning_paths'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/teacher_programs:
+  get:
+    $ref: './paths/teacher_programs.yml#/get-teacher_programs'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/teacher_voicepacks:
+  get:
+    $ref: './paths/teacher_voicepacks.yml#/get-teacher_voicepacks'
+  options:
+    $ref: './paths/cors.yml#/cors'
+/teacher_videos:
+  get:
+    $ref: './paths/teacher_videos.yml#/get-teacher_videos'
+  options:
+    $ref: './paths/cors.yml#/cors'

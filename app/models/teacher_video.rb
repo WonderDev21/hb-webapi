@@ -1,0 +1,2 @@
+class TeacherVideo < ApplicationRecord
+end

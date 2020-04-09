@@ -1,0 +1,30 @@
+UserLearningPath:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [user_learning_path, user_learning_paths]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      properties:
+        funding_source:
+          type: string
+          example: payment
+    relationships:
+      type: object
+      properties:
+        learning_path:
+          type: object
+          properties:
+            id:
+              type: string
+              example: '1'
+            type:
+              type: string
+              enum: [learning_path, learning_paths]

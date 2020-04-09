@@ -1,0 +1,12 @@
+
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Heartbit API
+paths:
+  $ref: ./schemas/paths.yml
+servers:
+  - url: http://localhost:3000/
+  - url: https://localhost:3000/
+components:
+  $ref: ./schemas/components.yml

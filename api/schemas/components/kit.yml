@@ -1,0 +1,56 @@
+
+Kit:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [kit, kits]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - name
+        - image_url
+        - industry
+        - difficulty
+        - age
+        - description
+        - video_url
+        - published
+        - background
+      properties:
+        name:
+          type: string
+          example: Emotion Tech
+        image_url:
+          type: string
+          example: https://heartbit.amazonaws.com/kits/emotion-tech.png
+        industry:
+          type: string
+          example: Emotion Tech
+        difficulty:
+          type: integer
+          example: 3
+        age:
+          type: integer
+          example: 8
+        description:
+          type: string
+          example: This is a short description of what is this kit about
+        video_url:
+          type: string
+          example: https://heartbit.amazonaws.com/kits/emotion-tech.mp4
+        published:
+          type: boolean
+          example: true
+        background:
+          type: string
+          example: 00FF00
+        price_in_cents:
+          type: integer
+          example: 1990

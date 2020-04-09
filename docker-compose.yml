@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - data_hb:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: heartbit_api_development
+    expose:
+      - '3306'
+    restart: always
+  web:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: mysql2://db
+      RAILS_ENV: development
+      PORT: '8000'
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    restart: always
+volumes:
+  data_hb: {}

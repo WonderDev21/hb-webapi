@@ -1,0 +1,29 @@
+PaymentProfile:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [payment_profile, payment_profiles]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - last4
+        - brand
+      properties:
+        external_payment_info:
+          type: object
+          example:
+            - stripe_token: 'token_FX2mrFpqfmNeml'
+            - stripe_card: 'card_1F1yhI2eZvKYlo2C00o6u8pH'
+        last4:
+          type: integer
+          example: 1234
+        brand:
+          type: string
+          example: Visa

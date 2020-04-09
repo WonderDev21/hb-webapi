@@ -1,0 +1,31 @@
+Error:
+  type: object
+  properties:
+    id:
+      type: string
+      description: A unique identifier for this occurence
+    links:
+      type: object
+      description: A links object
+      properties:
+        about:
+          type: string
+          description: link that leads to details about this occurence
+    status:
+        type: string
+        description: HTTP status code
+    code:
+        type: string
+        description: Application Specific Error Code
+    title:
+        type: string
+        description: Human-readable summary of the problem
+    detail:
+        type: string
+        description: Human-readable explanation of the problem
+    source:
+        type: object
+        description: Contains references to the source of the problem
+    meta:
+        type: object
+        description: Non-standard meta-information about the error

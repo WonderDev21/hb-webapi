@@ -1,0 +1,36 @@
+post-user_kits:
+  operationId: createUserKit
+  summary: Creates a new user kit
+  description: Creates a new user kit
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          $ref: '../components.yml#/schemas/UserKitRequest'
+    description: The user kit data.
+    required: true
+  responses:
+    "201":
+      description: user kit succesfully created.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserKitResponse'
+    "400":
+      description: bad request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "422":
+      description: unprocessable entity
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

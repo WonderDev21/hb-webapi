@@ -1,0 +1,54 @@
+post-token:
+  operationId: createToken
+  summary: Creates a new auth token
+  description: Creates a new auth token for the user
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+            $ref: '../components.yml#/schemas/TokenRequest'
+    description: The user login data.
+    required: true
+  responses:
+    "201":
+      description: token succesfully created.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/TokenResponse'
+    "400":
+      description: bad request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "422":
+      description: unprocessable entity
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+delete-token:
+  operationId: deleteToken
+  summary: Destroy an existing user token
+  responses:
+    "204":
+      description: accepted - token deleted
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

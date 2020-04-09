@@ -1,0 +1,28 @@
+TeacherProgram:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [teacher_program, teacher_programs]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - name
+        - image_url
+        - resource_url
+      properties:
+        name:
+          type: string
+          example: First Year Teacher
+        image_url:
+          type: string
+          example: https://heartbit.amazonaws.com/teachers/programs/first_year_teacher.png
+        resource_url:
+          type: string
+          example: https://heartbit.amazonaws.com/teachers/programs/first_year_teacher.pdf

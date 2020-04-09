@@ -1,0 +1,104 @@
+get-kits:
+  operationId: showKits
+  summary: List Kits
+  description: List available Kits
+  responses:
+    "200":
+      description: Kits succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/KitsResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+get-kit:
+  operationId: showKit
+  summary: Show the corresponding kit by id
+  description: Show the corresponding kit by id
+  responses:
+    "200":
+      description: Kit succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/KitResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+post-kits:
+  operationId: createKit
+  summary: Create a Kit
+  description: Create a Kit
+  responses:
+    "201":
+      description: Kit succesfully created.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/KitResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+patch-kit:
+  operationId: updateKit
+  summary: update a Kit
+  description: update a Kit
+  responses:
+    "200":
+      description: Kit succesfully updated.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/KitResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+delete-kit:
+  operationId: deleteKit
+  summary: Delete an existing kit
+  responses:
+    "204":
+      description: accepted - kit deleted
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

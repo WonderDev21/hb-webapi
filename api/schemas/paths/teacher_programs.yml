@@ -1,0 +1,23 @@
+get-teacher_programs:
+  operationId: showTeacherPrograms
+  summary: List teacher programs
+  description: List available teacher programs
+  responses:
+    "200":
+      description: teacher programs succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/TeacherProgramsResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

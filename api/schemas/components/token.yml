@@ -1,0 +1,32 @@
+Token:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [token, tokens]
+    id:
+      type: string
+      example: 2019-05-31T21:48:11.454Z
+    attributes:
+      type: object
+      required:
+        - token
+        - created_at
+        - expires_on
+        - expires_in
+      properties:
+        token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiJ9.ey...'
+        created_at:
+          type: string
+          example: 2019-05-31T21:48:11.454Z
+        expires_on:
+          type: string
+          example: 2019-07-01T08:17:17.454Z
+        expires_in:
+          type: integer
+          example: 2629746

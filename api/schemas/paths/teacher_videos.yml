@@ -1,0 +1,23 @@
+get-teacher_videos:
+  operationId: showTeacherVideos
+  summary: List teacher videos
+  description: List available teacher videos
+  responses:
+    "200":
+      description: teacher videos succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/TeacherVideosResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

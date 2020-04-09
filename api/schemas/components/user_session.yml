@@ -1,0 +1,17 @@
+UserSession:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [token, tokens]
+    attributes:
+      type: object
+      properties:
+        email:
+          type: string
+          example: heartbit_user@fakemail.com
+        password:
+          type: string

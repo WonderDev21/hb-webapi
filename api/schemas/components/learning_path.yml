@@ -1,0 +1,36 @@
+LearningPath:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [learning_path, learning_paths]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - title
+        - price_in_cents
+        - video_intro
+        - description
+        - image_url
+      properties:
+        name:
+          type: title
+          example: Introduction to STEAM
+        image_url:
+          type: string
+          example: https://heartbit.amazonaws.com/learning_path/1.png
+        price_in_cents:
+          type: integer
+          example: 3180
+        video_intro:
+          type: string
+          example: https://heartbit.amazonaws.com/learning_path/learning_steam.mp4
+        description: 
+          type: string
+          example: \nTake your analysis to the next level with General Assembly.

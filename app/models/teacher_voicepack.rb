@@ -1,0 +1,2 @@
+class TeacherVoicepack < ApplicationRecord
+end

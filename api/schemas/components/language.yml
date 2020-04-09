@@ -1,0 +1,24 @@
+Language:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [language, languages]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - name
+        - image_url
+      properties:
+        name:
+          type: string
+          example: english
+        image_url:
+          type: string
+          example: https://heartbit.amazonaws.com/languages/english.png

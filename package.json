@@ -1,0 +1,17 @@
+{
+  "name": "heartbit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Natalia Hashimoto <nahrivera7@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "redoc-cli": "^0.8.4",
+    "swagger-cli": "^2.2.1"
+  },
+  "scripts": {
+    "api:serve": "redoc-cli serve api/main.yml",
+    "api:bundle": "swagger-cli bundle -t yaml -o api/openapi3.yml api/main.yml",
+    "api:validate": "swagger-cli validate api/main.yml"
+  }
+}

@@ -1,0 +1,23 @@
+get-learning_paths:
+  operationId: showLearningPaths
+  summary: List learning paths
+  description: List available learning paths
+  responses:
+    "200":
+      description: learning paths succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/LearningPathResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

@@ -1,0 +1,196 @@
+schemas:
+  Error:
+    $ref: './components/error.yml#/Error'
+  User:
+    $ref: './components/user.yml#/User'
+  Token:
+    $ref: './components/token.yml#/Token'
+  UserSession:
+    $ref: './components/user_session.yml#/UserSession'
+  UserEmail:
+    $ref: './components/password.yml#/UserEmail'
+  UserPassword:
+    $ref: './components/password.yml#/UserPassword'
+  Language:
+    $ref: './components/language.yml#/Language'
+  Kit:
+    $ref: './components/kit.yml#/Kit'
+  PaymentProfile:
+    $ref: './components/payment_profile.yml#/PaymentProfile'
+  UserKit:
+    $ref: './components/user_kit.yml#/UserKit'
+  LearningPath:
+    $ref: './components/learning_path.yml#/LearningPath'
+  UserLearningPath:
+    $ref: './components/user_learning_path.yml#/UserLearningPath'
+  TeacherProgram:
+    $ref: './components/teacher_program.yml#/TeacherProgram'
+  TeacherVoicepack:
+    $ref: './components/teacher_voicepack.yml#/TeacherVoicepack'
+  TeacherVideo:
+    $ref: './components/teacher_video.yml#/TeacherVideo'
+  UserRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      data:
+        $ref: "#/schemas/User"
+  UserResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/User"
+  TokenRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserSession"
+  TokenResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/Token"
+  LanguagesResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/Language"
+  KitRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/Kit"
+  KitResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/Kit"
+  KitsResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/Kit"
+  ResetPasswordRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserEmail"
+  NewPasswordRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserPassword"
+  PaymentProfileRequest:
+    type: object
+    properties:
+      data:
+        $ref: "#/schemas/PaymentProfile"
+  PaymentProfileResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/PaymentProfile"
+  UserKitRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserKit"
+      included:
+        type: array
+        items:
+          $ref: "#/schemas/Kit"
+  UserKitResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserKit"
+      included:
+        type: array
+        items:
+          $ref: "#/schemas/Kit"
+  UserLearningPathRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserLearningPath"
+      included:
+        type: array
+        items:
+          $ref: "#/schemas/LearningPath"
+  UserLearningPathResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        $ref: "#/schemas/UserLearningPath"
+      included:
+        type: array
+        items:
+          $ref: "#/schemas/LearningPath"
+  UserLearningPathsResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/UserLearningPath"
+  LearningPathResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/LearningPath"
+  TeacherProgramsResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/TeacherProgram"
+  TeacherVoicepacksResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/TeacherVoicepack"
+  TeacherVideosResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/schemas/TeacherVideo"
+  ErrorResponse:
+    type: object
+    required:
+      - errors
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: "#/schemas/Error"

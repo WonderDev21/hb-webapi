@@ -1,0 +1,40 @@
+AllCops:
+  Exclude:
+    - 'config/**/*'
+    - 'db/migrate/*.rb'
+    - 'db/schema.rb' 
+    - 'vendor/**/*'
+    - 'bin/*'
+    - Gemfile
+    - Rakefile
+    - config.ru
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 140
+
+Metrics/BlockLength:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

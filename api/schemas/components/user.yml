@@ -1,0 +1,53 @@
+User:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [user, users]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@fakemail.com
+        password:
+          type: string
+        first_name:
+          type: string
+          example: Username
+        last_name:
+          type: string
+          example: Userlastname
+        age:
+          type: integer
+          example: 15
+        city:
+          type: string
+          example: Bogotá
+        role:
+          type: string
+          example: Student
+        address:
+          type: string
+          example: 'Calle 150A #45-95'
+          nullable: true
+        terms_accepted:
+          type: boolean
+          example: true
+        registration_state:
+          type: string
+          enum: [language_pending, onboarding_completed]
+        image_url:
+          type: string
+          example: https://heartbit.amazonaws.com/users/1.png
+          nullable: true
+        institution:
+          type: string
+          example: Liceo Francés
+          nullable: true

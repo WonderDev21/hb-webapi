@@ -1,0 +1,59 @@
+post-user_learning_paths:
+  operationId: createUserLearningPath
+  summary: Creates a new user learning path
+  description: Creates a new user learning path
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          $ref: '../components.yml#/schemas/UserLearningPathRequest'
+    description: The user learning path data.
+    required: true
+  responses:
+    "201":
+      description: User learning path succesfully created.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserLearningPathResponse'
+    "400":
+      description: bad request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    "422":
+      description: unprocessable entity
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+get-user_learning_paths:
+  operationId: listUserLearningPaths
+  summary: List User Learning Paths
+  description: List available user learning paths
+  responses:
+    "200":
+      description: user learning paths succesfully listed.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/UserLearningPathsResponse'
+    "401":
+      description: unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'
+    default:
+      description: unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components.yml#/schemas/ErrorResponse'

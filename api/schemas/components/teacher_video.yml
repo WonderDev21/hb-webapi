@@ -1,0 +1,24 @@
+TeacherVideo:
+  type: object
+  required:
+    - type
+    - attributes
+  properties:
+    type:
+      type: string
+      enum: [teacher_video, teacher_videos]
+    id:
+      type: string
+      example: '1'
+    attributes:
+      type: object
+      required:
+        - name
+        - resource_url
+      properties:
+        name:
+          type: string
+          example: Getting Started
+        resource_url:
+          type: string
+          example: https://heartbit.amazonaws.com/teachers/videos/getting_started.mp4
